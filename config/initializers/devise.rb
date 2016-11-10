@@ -13,6 +13,9 @@ Devise.setup do |config|
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
   require 'devise/orm/active_record'
+  class User < ActiveRecord::Base
+      devise :database_authenticatable, :token_authenticatable
+  end
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating an user. By default is
@@ -169,4 +172,23 @@ Devise.setup do |config|
   #config.warden do |manager|
     #manager.default_strategies(:scope => :user).unshift(:custom_database_authenticatable)
   #end
+  config.secret_key = '6725af4e96a7e0d1fa7f10ee0333fc5eca9fca4ec436b61e00dd63f4aca4598411085fed97e33639efec91f778cf035cc04f2f88e03e9af662709ac40d2fd9d3'
+  Devise::TokenAuthenticatable.setup do |config|
+    # enables the expiration of a token after a specified amount of time,
+    # requires an additional field on the model: `authentication_token_created_at`
+    # defaults to nil
+    config.token_expires_in = 1.day
+
+    # set the authentication key name used by this module,
+    # defaults to :auth_token
+    config.token_authentication_key = :other_key_name
+
+    # enable reset of the authentication token before the model is saved,
+    # defaults to false
+    config.should_reset_authentication_token = true
+
+    # enables the setting of the authentication token - if not already - before the model is saved,
+    # defaults to false
+    config.should_ensure_authentication_token = true
+  end
 end

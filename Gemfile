@@ -15,3 +15,6 @@ gem 'jquery-rails'
 # gems for omniauth and devise
 gem 'devise'
 gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'devise-token_authenticatable'
+
